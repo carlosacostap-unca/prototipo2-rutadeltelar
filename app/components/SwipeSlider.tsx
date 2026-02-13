@@ -39,6 +39,29 @@ const sections = [
     link: "/productos",
     bg: "bg-amber-900",
     text: "text-amber-100"
+  },
+  {
+    title: "Experiencias",
+    subtitle: "Vivencias",
+    description: "Participa en talleres y conoce nuestras tradiciones.",
+    link: "/experiencias",
+    bg: "bg-orange-900",
+    text: "text-orange-100"
+  },
+  {
+    title: "Agenda",
+    subtitle: "Eventos",
+    description: "Festivales y celebraciones en la ruta.",
+    link: "/agenda",
+    bg: "bg-violet-900",
+    text: "text-violet-100"
+  },
+  {
+    title: "Contacta",
+    subtitle: "Visítanos",
+    description: "Ven y conoce el proceso artesanal.",
+    bg: "bg-stone-800",
+    text: "text-stone-100"
   }
 ];
 
