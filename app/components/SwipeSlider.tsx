@@ -4,6 +4,7 @@ import React, { useRef, useState } from "react";
 import gsap from "gsap";
 import { Observer } from "gsap/Observer";
 import { useGSAP } from "@gsap/react";
+import Link from "next/link";
 
 gsap.registerPlugin(Observer);
 
@@ -16,9 +17,10 @@ const sections = [
     text: "text-stone-100"
   },
   {
-    title: "Descubre",
-    subtitle: "Nuestra Historia",
-    description: "Generaciones de sabiduría en cada hilo.",
+    title: "¿Qué es la ruta del telar?",
+    subtitle: "Institucional",
+    description: "Conoce más sobre nuestro proyecto y misión.",
+    link: "/que-es-la-ruta",
     bg: "bg-rose-900",
     text: "text-rose-100"
   },
@@ -201,13 +203,13 @@ export default function SwipeSlider() {
                 <p className="text-lg md:text-2xl max-w-2xl mx-auto opacity-90 leading-relaxed mb-10">
                     {section.description}
                 </p>
-                {section.longText && (
-                    <button 
-                        onClick={openDetail}
-                        className="px-8 py-3 border-2 border-white/50 rounded-full text-lg uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105"
+                {section.link && (
+                    <Link
+                        href={section.link}
+                        className="inline-block px-8 py-3 border-2 border-white/50 rounded-full text-lg uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105"
                     >
-                        Leer más
-                    </button>
+                        Ver más
+                    </Link>
                 )}
             </div>
         </div>
