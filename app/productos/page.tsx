@@ -4,7 +4,8 @@ const productos = [
   {
     name: "Ponchos",
     description: "Prenda emblemática de Catamarca, tejida en telar criollo con lana de vicuña, llama u oveja. Destacan por su finura y diseños tradicionales.",
-    category: "Indumentaria"
+    category: "Indumentaria",
+    href: "/productos/ponchos"
   },
   {
     name: "Mantas",
@@ -54,28 +55,52 @@ export default function Productos() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {productos.map((producto, index) => (
-                <div key={index} className="group flex flex-col bg-white/5 rounded-2xl border border-white/10 overflow-hidden hover:border-white/30 transition-all duration-300 hover:transform hover:scale-[1.02]">
-                    <div className="h-64 bg-stone-800 relative overflow-hidden">
-                        {/* Placeholder visual para imagen de producto */}
-                        <div className="absolute inset-0 flex flex-col items-center justify-center opacity-20 group-hover:opacity-30 transition-opacity">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                            </svg>
+            {productos.map((producto, index) => {
+                // @ts-ignore
+                const hasLink = !!producto.href;
+                
+                const CardContent = (
+                    <div className={`group flex flex-col bg-white/5 rounded-2xl border border-white/10 overflow-hidden hover:border-white/30 transition-all duration-300 hover:transform hover:scale-[1.02] h-full ${hasLink ? 'cursor-pointer' : ''}`}>
+                        <div className="h-64 bg-stone-800 relative overflow-hidden">
+                            {/* Placeholder visual para imagen de producto */}
+                            <div className="absolute inset-0 flex flex-col items-center justify-center opacity-20 group-hover:opacity-30 transition-opacity">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                </svg>
+                            </div>
+                            <div className="absolute top-4 right-4 bg-amber-900/80 text-amber-100 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                                {producto.category}
+                            </div>
                         </div>
-                        <div className="absolute top-4 right-4 bg-amber-900/80 text-amber-100 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                            {producto.category}
+                        <div className="p-8 flex-1 flex flex-col">
+                            <div className="flex justify-between items-start mb-4">
+                                <h3 className="text-2xl font-bold text-amber-100/90">{producto.name}</h3>
+                                {hasLink && (
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-amber-500 opacity-50 group-hover:opacity-100 transition-opacity">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                )}
+                            </div>
+                            <p className="text-stone-300 leading-relaxed text-sm flex-1">
+                                {producto.description}
+                            </p>
                         </div>
                     </div>
-                    <div className="p-8 flex-1 flex flex-col">
-                        <h3 className="text-2xl font-bold mb-4 text-amber-100/90">{producto.name}</h3>
-                        <p className="text-stone-300 leading-relaxed text-sm flex-1">
-                            {producto.description}
-                        </p>
-                    </div>
-                </div>
-            ))}
+                );
+
+                if (hasLink) {
+                    return (
+                        // @ts-ignore
+                        <Link key={index} href={producto.href} className="block h-full">
+                            {CardContent}
+                        </Link>
+                    );
+                }
+
+                return <div key={index} className="h-full">{CardContent}</div>;
+            })}
         </div>
       </div>
     </main>
