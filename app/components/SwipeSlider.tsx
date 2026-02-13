@@ -25,9 +25,10 @@ const sections = [
     text: "text-rose-100"
   },
   {
-    title: "Explora",
-    subtitle: "Los Tejidos",
-    description: "Colores y texturas que cuentan historias.",
+    title: "Estaciones",
+    subtitle: "Recorrido",
+    description: "Descubre los puntos clave de nuestra ruta artesanal.",
+    link: "/estaciones",
     bg: "bg-emerald-900",
     text: "text-emerald-100"
   },
