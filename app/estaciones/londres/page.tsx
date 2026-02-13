@@ -1,11 +1,12 @@
 import Link from "next/link";
-import InfiniteCardSlider from "@/app/components/InfiniteCardSlider";
+import FlipCarousel from "@/app/components/FlipCarousel";
 
 const productos = [
   {
     title: "Poncho de Vicuña",
     description: "Prenda de lujo tejida con la fibra más fina del mundo.",
-    bg: "bg-amber-800"
+    bg: "bg-amber-800",
+    href: "/estaciones/londres/poncho-vicuna"
   },
   {
     title: "Manta Criolla",
@@ -114,7 +115,7 @@ export default function LondresPage() {
                     <h2 className="text-3xl md:text-5xl font-bold text-stone-100">Productos Locales</h2>
                     <span className="text-amber-500 text-sm font-bold uppercase tracking-widest">Artesanía Textil</span>
                 </div>
-                <InfiniteCardSlider items={productos} speed={30} direction="left" />
+                <FlipCarousel items={productos} />
             </section>
 
             <section>
@@ -122,7 +123,7 @@ export default function LondresPage() {
                     <h2 className="text-3xl md:text-5xl font-bold text-stone-100">Experiencias</h2>
                     <span className="text-stone-400 text-sm font-bold uppercase tracking-widest">Vivencias Únicas</span>
                 </div>
-                <InfiniteCardSlider items={experiencias} speed={35} direction="right" />
+                <FlipCarousel items={experiencias} />
             </section>
         </div>
       </div>
