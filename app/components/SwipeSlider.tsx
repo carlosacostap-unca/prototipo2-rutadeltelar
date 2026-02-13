@@ -57,11 +57,28 @@ const sections = [
     text: "text-violet-100"
   },
   {
-    title: "Contacta",
-    subtitle: "Visítanos",
-    description: "Ven y conoce el proceso artesanal.",
-    bg: "bg-stone-800",
-    text: "text-stone-100"
+    title: "Directorio",
+    subtitle: "Información Útil",
+    description: "Datos de contacto y servicios en cada estación.",
+    link: "/directorio",
+    bg: "bg-cyan-900",
+    text: "text-cyan-100"
+  },
+  {
+    title: "Sumate",
+    subtitle: "Participa",
+    description: "Sé parte de nuestra red de artesanos y colaboradores.",
+    link: "/sumate",
+    bg: "bg-teal-900",
+    text: "text-teal-100"
+  },
+  {
+    title: "Contáctanos",
+    subtitle: "Escríbenos",
+    description: "Envíanos tus consultas o sugerencias.",
+    link: "/contactanos",
+    bg: "bg-indigo-900",
+    text: "text-indigo-100"
   }
 ];
 
