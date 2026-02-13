@@ -140,20 +140,26 @@ function SwipeSliderContent() {
         gsap.set(slides[0], { xPercent: 0, zIndex: 1 });
     }
     
+    const handlePrev = () => {
+        if (!animating.current && currentIndexRef.current > 0) {
+            gotoPanel(currentIndexRef.current - 1, false);
+        }
+    };
+
+    const handleNext = () => {
+        if (!animating.current && currentIndexRef.current < slides.length - 1) {
+            gotoPanel(currentIndexRef.current + 1, true);
+        }
+    };
+
     const observer = Observer.create({
       target: containerRef.current,
       type: "wheel,touch,pointer",
       wheelSpeed: -1,
-      onDown: () => {
-        if (!animating.current && currentIndexRef.current > 0) {
-            gotoPanel(currentIndexRef.current - 1, false);
-        }
-      },
-      onUp: () => {
-        if (!animating.current && currentIndexRef.current < slides.length - 1) {
-            gotoPanel(currentIndexRef.current + 1, true);
-        }
-      },
+      onDown: handlePrev,
+      onUp: handleNext,
+      onRight: handlePrev,
+      onLeft: handleNext,
       tolerance: 10,
       preventDefault: true
     });
