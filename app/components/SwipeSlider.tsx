@@ -33,9 +33,10 @@ const sections = [
     text: "text-emerald-100"
   },
   {
-    title: "Contacta",
-    subtitle: "Visítanos",
-    description: "Ven y conoce el proceso artesanal.",
+    title: "Productos",
+    subtitle: "Artesanía Local",
+    description: "Piezas únicas tejidas con técnicas ancestrales.",
+    link: "/productos",
     bg: "bg-amber-900",
     text: "text-amber-100"
   }
