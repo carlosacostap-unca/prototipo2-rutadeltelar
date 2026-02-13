@@ -61,8 +61,8 @@ export default function SwipeSlider() {
 
     // Animation
     gsap.fromTo(nextSlide, 
-        { xPercent: isNext ? 100 : -100 },
-        { xPercent: 0, duration: 1, ease: "power3.inOut" }
+        { xPercent: isNext ? 100 : -100, scale: 1 },
+        { xPercent: 0, scale: 1, duration: 1, ease: "power3.inOut" }
     );
     
     gsap.fromTo(currentSlide,
