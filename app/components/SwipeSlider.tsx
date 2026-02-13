@@ -11,7 +11,7 @@ const sections = [
   {
     title: "Bienvenido",
     subtitle: "Ruta del Telar",
-    description: "Explora la tradición y el arte de nuestros tejidos.",
+    description: "Un programa cultural y productivo que articula territorio, comunidades y saberes ancestrales de Catamarca.",
     longText: [
       "En Catamarca, la Ruta del Telar abarca desde las singularidades del territorio, favorables para la cría de llamas y ovejas, la captura y esquila de vicuñas (animales en silvestría) de las que se extraen fibras de alta calidad; la reivindicación de los rituales culturales en torno a ella; la revalorización de las técnicas ancestrales en el proceso de transformación artesanal; hasta la comercialización de productos de alto valor material y cultural. Por tratarse de un proyecto inclusivo, se suman otras actividades productivas y de servicios, con el objetivo de conformar un producto turístico sustentable.",
       "La Ruta del Telar Catamarca propone impulsar el sueño colectivo de artesanas y artesanos que muestran orgullosos sus trabajos elaborados a través de técnicas milenarias bajo la cosmovisión andina. Más de 300 familias dedicadas al tejido tradicional en telar criollo participan de esta iniciativa, que se desarrolla en el marco de valles, sitios arqueológicos y comidas regionales, preservando los saberes ancestrales de las culturas originarias transmitidos de generación en generación.",
@@ -59,6 +59,7 @@ const sections = [
 export default function SwipeSlider() {
   const containerRef = useRef<HTMLDivElement>(null);
   const detailRef = useRef<HTMLDivElement>(null);
+  const detailContentRef = useRef<HTMLDivElement>(null);
   const animating = useRef(false);
   const currentIndexRef = useRef(0);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -144,17 +145,44 @@ export default function SwipeSlider() {
       type: "wheel,touch,pointer",
       wheelSpeed: -1,
       onDown: () => {
+        // Handle Detail View Navigation
+        if (detailOpen && detailContentRef.current) {
+            const el = detailContentRef.current;
+            // If scrolled to top (with tolerance), go to previous section
+            if (el.scrollTop <= 5) {
+                closeDetail();
+                if (currentIndexRef.current > 0) {
+                    // Delay navigation slightly to allow close animation to start
+                    setTimeout(() => gotoPanel(currentIndexRef.current - 1, false), 100);
+                }
+            }
+            return;
+        }
+
         if (!detailOpen && !animating.current && currentIndexRef.current > 0) {
             gotoPanel(currentIndexRef.current - 1, false);
         }
       },
       onUp: () => {
+        // Handle Detail View Navigation
+        if (detailOpen && detailContentRef.current) {
+            const el = detailContentRef.current;
+            // If scrolled to bottom (with tolerance), go to next section
+            if (Math.abs(el.scrollHeight - el.clientHeight - el.scrollTop) <= 5) {
+                closeDetail();
+                if (currentIndexRef.current < slides.length - 1) {
+                    setTimeout(() => gotoPanel(currentIndexRef.current + 1, true), 100);
+                }
+            }
+            return;
+        }
+
         if (!detailOpen && !animating.current && currentIndexRef.current < slides.length - 1) {
             gotoPanel(currentIndexRef.current + 1, true);
         }
       },
       tolerance: 10,
-      preventDefault: true
+      preventDefault: !detailOpen // Only prevent default if detail is closed to allow native scroll
     });
 
     return () => observer.kill();
@@ -219,7 +247,7 @@ export default function SwipeSlider() {
             </svg>
         </button>
 
-        <div className="flex-1 overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent max-w-4xl mx-auto w-full pt-12">
+        <div ref={detailContentRef} className="flex-1 overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent max-w-4xl mx-auto w-full pt-12">
             <h3 className="text-xl font-light uppercase tracking-widest mb-4 opacity-80">
                 {currentSection.subtitle}
             </h3>
