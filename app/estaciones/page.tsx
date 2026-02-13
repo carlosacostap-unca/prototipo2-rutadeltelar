@@ -33,7 +33,7 @@ export default function Estaciones() {
     <main className="min-h-screen bg-stone-900 text-stone-100 p-8 md:p-16">
       <div className="max-w-6xl mx-auto">
         <div className="mb-12">
-            <Link href="/" className="inline-flex items-center text-stone-400 hover:text-white transition-colors mb-8 group">
+            <Link href="/?s=2" className="inline-flex items-center text-stone-400 hover:text-white transition-colors mb-8 group">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 transform group-hover:-translate-x-1 transition-transform">
                     <line x1="19" y1="12" x2="5" y2="12"></line>
                     <polyline points="12 19 5 12 12 5"></polyline>

@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, Suspense } from "react";
 import gsap from "gsap";
 import { Observer } from "gsap/all";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 gsap.registerPlugin(Observer);
 
@@ -82,11 +83,14 @@ const sections = [
   }
 ];
 
-export default function SwipeSlider() {
+function SwipeSliderContent() {
+  const searchParams = useSearchParams();
+  const initialSlide = parseInt(searchParams.get("s") || "0");
+  
   const containerRef = useRef<HTMLDivElement>(null);
   const animating = useRef(false);
-  const currentIndexRef = useRef(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const currentIndexRef = useRef(initialSlide);
+  const [currentIndex, setCurrentIndex] = useState(initialSlide);
 
   const { contextSafe } = useGSAP({ scope: containerRef });
 
@@ -128,7 +132,13 @@ export default function SwipeSlider() {
   useGSAP(() => {
     const slides = gsap.utils.toArray(".panel") as HTMLElement[];
     gsap.set(slides, { xPercent: 100, zIndex: 0 });
-    gsap.set(slides[0], { xPercent: 0, zIndex: 1 });
+    
+    // Set initial slide
+    if (slides[initialSlide]) {
+        gsap.set(slides[initialSlide], { xPercent: 0, zIndex: 1 });
+    } else {
+        gsap.set(slides[0], { xPercent: 0, zIndex: 1 });
+    }
     
     const observer = Observer.create({
       target: containerRef.current,
@@ -196,5 +206,13 @@ export default function SwipeSlider() {
         Desliza o haz scroll para navegar
       </div>
     </div>
+  );
+}
+
+export default function SwipeSlider() {
+  return (
+    <Suspense fallback={<div className="fixed inset-0 bg-stone-900" />}>
+      <SwipeSliderContent />
+    </Suspense>
   );
 }
